@@ -5,6 +5,7 @@ import {
   Grid,
   makeStyles,
   Paper,
+  Box,
   ButtonBase,
   Typography,
 } from "@material-ui/core"
@@ -49,26 +50,41 @@ const IndexPage = () => {
               { emoji: "🐢", title: "Slow", time: "over 10 minutes" },
               { emoji: "🚀", title: "Normal", time: "under 3 minutes" },
               { emoji: "⚡", title: "Fast", time: "under 1 minute" },
-            ].map(value => (
-              <Grid key={value} item md={4} xs={12}>
+            ].map((value, idx) => (
+              <Grid key={idx} item md={4} xs={12}>
                 <Paper elevation={4} color="default" className={classes.paper}>
                   <Grid container spacing={2}>
-                    <Grid item>
+                    <Box
+                      display="flex"
+                      justifyContent="center"
+                      flexDirection="column"
+                      width={1}
+                    >
                       <ButtonBase className={classes.emoji}>
-                        {value.emoji}
+                        <Box p={3}>{value.emoji}</Box>
                       </ButtonBase>
-                    </Grid>
+                    </Box>
                     <Grid item xs={12} sm container>
-                      <Grid item xs container direction="column" spacing={2}>
-                        <Grid item xs>
-                          <Typography gutterBottom variant="subtitle1">
+                      <Grid item container spacing={2} justify="center">
+                        <Box
+                          display="flex"
+                          justifyContent="center"
+                          flexDirection="column"
+                        >
+                          <Typography align="center" variant="h6">
                             {value.title}
                           </Typography>
-                          <Typography variant="h2">120</Typography>
-                          <Typography variant="body2" color="textSecondary">
+                          <Typography align="center" variant="h2">
+                            120
+                          </Typography>
+                          <Typography
+                            align="center"
+                            variant="body2"
+                            color="textSecondary"
+                          >
                             Time: {value.time}
                           </Typography>
-                        </Grid>
+                        </Box>
                       </Grid>
                     </Grid>
                   </Grid>
