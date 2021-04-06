@@ -10,7 +10,7 @@ import PropTypes from "prop-types"
 import { ThemeProvider } from "@material-ui/core/styles"
 import { useStaticQuery, graphql } from "gatsby"
 import { defaultTheme } from "../themes"
-// import { Container } from "@material-ui/core"
+import { Container, Box } from "@material-ui/core"
 import Header from "../common/header"
 import "./layout.css"
 
@@ -28,6 +28,9 @@ const Layout = ({ children }) => {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+      <Container>
+        <Box py={3}>{children}</Box>
+      </Container>
     </ThemeProvider>
   )
 }

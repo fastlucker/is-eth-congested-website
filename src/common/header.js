@@ -2,7 +2,13 @@ import * as React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import { fade, makeStyles } from "@material-ui/core/styles"
-import { AppBar, Toolbar, Typography, IconButton } from "@material-ui/core"
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Container,
+} from "@material-ui/core"
 import {
   Menu as MenuIcon,
   EvStationRounded as EvStationIcon,
@@ -21,19 +27,22 @@ const Header = ({ siteTitle }) => {
   const classes = useStyles()
   return (
     <AppBar position="static" color="default">
-      <Toolbar variant="dense">
-        <IconButton
-          edge="start"
-          // className={classes.menuButton}
-          color="inherit"
-          aria-label="menu"
-        >
-          <EvStationIcon />
-        </IconButton>
-        <Typography className={classes.title} variant="h6" noWrap>
-          Is Ethereum Congested?
-        </Typography>
-      </Toolbar>
+      <Container>
+        <Toolbar variant="regular" disableGutters>
+          <IconButton
+            edge="start"
+            // className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          >
+            <EvStationIcon />
+          </IconButton>
+          <Typography className={classes.title} variant="h6" noWrap>
+            Is Ethereum Congested?
+          </Typography>
+          {/* TODO: maybe do something on the right side as well */}
+        </Toolbar>
+      </Container>
     </AppBar>
   )
 }
