@@ -97,7 +97,7 @@ export default function GasTrackers() {
                           {value.title}
                         </Typography>
                         <Typography align="center" variant="h2">
-                          {Number(gasInfo[value.gasInfoNaming]) / 10}
+                          {Number(gasInfo[value.gasInfoNaming] || 0) / 10}
                         </Typography>
                         <Typography
                           align="center"

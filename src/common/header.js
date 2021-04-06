@@ -8,23 +8,30 @@ import {
   Typography,
   IconButton,
   Container,
+  Chip,
+  Box,
 } from "@material-ui/core"
 import {
-  Menu as MenuIcon,
+  WidgetsRounded as WidgetsIcon,
+  AccessTimeRounded as TimeIcon,
   EvStationRounded as EvStationIcon,
 } from "@material-ui/icons"
+import { useSelector } from "react-redux"
+import { selectGasInfo } from "../features/gasTracker/gasTrackerSlice"
 
 const useStyles = makeStyles(theme => ({
   title: {
     display: "none",
     [theme.breakpoints.up("sm")]: {
       display: "block",
+      flexGrow: 1,
     },
   },
 }))
 
 const Header = ({ siteTitle }) => {
   const classes = useStyles()
+  const { block_time = 0, blockNum } = useSelector(selectGasInfo)
   return (
     <AppBar position="static" color="default">
       <Container>
@@ -41,6 +48,15 @@ const Header = ({ siteTitle }) => {
             Is Ethereum Congested?
           </Typography>
           {/* TODO: maybe do something on the right side as well */}
+          <Box px={1}>
+            <Chip label={blockNum} icon={<WidgetsIcon fontSize={"small"} />} />
+          </Box>
+          <Box px={1}>
+            <Chip
+              label={`${block_time.toFixed(2)}s`}
+              icon={<TimeIcon fontSize={"small"} />}
+            />
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>
