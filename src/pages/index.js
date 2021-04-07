@@ -8,8 +8,8 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Home" />
-      <GasTrackers />
       <IsEthCongested />
+      <GasTrackers />
     </Layout>
   )
 }
