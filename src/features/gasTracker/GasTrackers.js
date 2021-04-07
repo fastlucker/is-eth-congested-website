@@ -105,14 +105,14 @@ export default function GasTrackers() {
                           variant="body2"
                           color="textSecondary"
                         >
-                          Time: {value.time}
+                          ⏲ {value.time}
                         </Typography>
                         <Typography
                           align="center"
                           variant="body2"
                           color="textSecondary"
                         >
-                          Cost: {get(gasInfo, `${value.gasInfoNaming}.usd`, 0)}$
+                          💸 {get(gasInfo, `${value.gasInfoNaming}.usd`, 0)}$
                         </Typography>
                       </Box>
                     </Grid>

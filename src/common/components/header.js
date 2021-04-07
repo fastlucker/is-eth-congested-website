@@ -1,7 +1,7 @@
 import * as React from "react"
 import PropTypes from "prop-types"
-import { Link } from "gatsby"
-import { fade, makeStyles } from "@material-ui/core/styles"
+// import { Link } from "gatsby"
+import { makeStyles } from "@material-ui/core/styles"
 import {
   AppBar,
   Toolbar,
@@ -17,7 +17,7 @@ import {
   EvStationRounded as EvStationIcon,
 } from "@material-ui/icons"
 import { useSelector } from "react-redux"
-import { selectGasInfo } from "../features/gasTracker/gasTrackerSlice"
+import { selectGasInfo } from "src/features/gasTracker/gasTrackerSlice"
 import get from "lodash.get"
 
 const useStyles = makeStyles(theme => ({
@@ -51,7 +51,7 @@ const Header = ({ siteTitle }) => {
           {/* TODO: maybe do something on the right side as well */}
           <Box px={1}>
             <Chip
-              label={get(gasInfo, `sources.0.lastBlock`, 'loading')}
+              label={get(gasInfo, `sources.0.lastBlock`, "loading")}
               icon={<WidgetsIcon fontSize={"small"} />}
             />
           </Box>

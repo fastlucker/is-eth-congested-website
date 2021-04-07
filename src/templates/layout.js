@@ -9,9 +9,9 @@ import * as React from "react"
 import PropTypes from "prop-types"
 import { ThemeProvider } from "@material-ui/core/styles"
 import { useStaticQuery, graphql } from "gatsby"
-import { defaultTheme } from "../themes"
+import { defaultTheme } from "src/themes"
 import { Container, Box } from "@material-ui/core"
-import Header from "../common/header"
+import Header from "components/header"
 import "./layout.css"
 
 const Layout = ({ children }) => {
