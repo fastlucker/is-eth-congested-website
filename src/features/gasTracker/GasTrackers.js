@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchGasInfoAsync, selectGasInfo } from "./gasTrackerSlice"
+import get from "lodash.get"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -52,13 +53,13 @@ export default function GasTrackers() {
               emoji: "🐢",
               title: "Slow",
               time: "under 30 minutes",
-              gasInfoNaming: "safeLow",
+              gasInfoNaming: "slow",
             },
             {
               emoji: "🐰",
               title: "Normal",
               time: "under 5 minutes",
-              gasInfoNaming: "average",
+              gasInfoNaming: "normal",
             },
             {
               emoji: "🚀",
@@ -70,7 +71,7 @@ export default function GasTrackers() {
               emoji: "⚡",
               title: "Ultra Fast",
               time: "under 30 seconds",
-              gasInfoNaming: "fastest",
+              gasInfoNaming: "instant",
             },
           ].map((value, idx) => (
             <Grid key={idx} item md={3} xs={12}>
@@ -97,7 +98,7 @@ export default function GasTrackers() {
                           {value.title}
                         </Typography>
                         <Typography align="center" variant="h2">
-                          {Number(gasInfo[value.gasInfoNaming] || 0) / 10}
+                          {get(gasInfo, `${value.gasInfoNaming}.gwei`, 0)}
                         </Typography>
                         <Typography
                           align="center"
@@ -105,6 +106,13 @@ export default function GasTrackers() {
                           color="textSecondary"
                         >
                           Time: {value.time}
+                        </Typography>
+                        <Typography
+                          align="center"
+                          variant="body2"
+                          color="textSecondary"
+                        >
+                          Cost: {get(gasInfo, `${value.gasInfoNaming}.usd`, 0)}$
                         </Typography>
                       </Box>
                     </Grid>

@@ -18,6 +18,7 @@ import {
 } from "@material-ui/icons"
 import { useSelector } from "react-redux"
 import { selectGasInfo } from "../features/gasTracker/gasTrackerSlice"
+import get from "lodash.get"
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -31,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 
 const Header = ({ siteTitle }) => {
   const classes = useStyles()
-  const { block_time = 0, blockNum } = useSelector(selectGasInfo)
+  const gasInfo = useSelector(selectGasInfo)
   return (
     <AppBar position="static" color="default">
       <Container>
@@ -49,14 +50,17 @@ const Header = ({ siteTitle }) => {
           </Typography>
           {/* TODO: maybe do something on the right side as well */}
           <Box px={1}>
-            <Chip label={blockNum} icon={<WidgetsIcon fontSize={"small"} />} />
+            <Chip
+              label={get(gasInfo, `sources.0.lastBlock`, 'loading')}
+              icon={<WidgetsIcon fontSize={"small"} />}
+            />
           </Box>
-          <Box px={1}>
+          {/* <Box px={1}>
             <Chip
               label={`${block_time.toFixed(2)}s`}
               icon={<TimeIcon fontSize={"small"} />}
             />
-          </Box>
+          </Box> */}
         </Toolbar>
       </Container>
     </AppBar>
