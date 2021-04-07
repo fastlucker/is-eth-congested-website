@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { fetchGasInfo } from "./gasTrackerAPI"
+import { ethGasWatchApi } from "common/api"
 
 const initialState = {
   gasInfo: {},
@@ -14,7 +14,8 @@ const initialState = {
 export const fetchGasInfoAsync = createAsyncThunk(
   "gasTracker/fetchGasInfo",
   async amount => {
-    const response = await fetchGasInfo(amount)
+    const response = await ethGasWatchApi.fetchGasInfo(amount)
+    // const response = await ethGasWatchApi.fetchGasInfo(amount)
     // The value we return becomes the `fulfilled` action payload
     return response
   }

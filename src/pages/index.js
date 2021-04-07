@@ -1,7 +1,7 @@
 import React from "react"
-import Layout from "src/templates/layout"
-import SEO from "components/seo"
-import GasTrackers from "src/features/gasTracker/GasTrackers"
+import Layout from "templates/layout"
+import SEO from "common/components/seo"
+import GasTrackers from "features/gasTracker/GasTrackers"
 
 const IndexPage = () => {
   return (

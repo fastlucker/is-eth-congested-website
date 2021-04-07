@@ -17,7 +17,7 @@ import {
   EvStationRounded as EvStationIcon,
 } from "@material-ui/icons"
 import { useSelector } from "react-redux"
-import { selectGasInfo } from "src/features/gasTracker/gasTrackerSlice"
+import { selectGasInfo } from "features/gasTracker/gasTrackerSlice"
 import get from "lodash.get"
 
 const useStyles = makeStyles(theme => ({
