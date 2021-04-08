@@ -8,6 +8,7 @@ import { fetchGasInfoAsync } from "features/gasTracker/gasTrackerSlice"
 import { fetchGasTrendAsync } from "features/gasTrend/gasTrendSlice"
 import { useDispatch } from "react-redux"
 import { Box, Divider } from "@material-ui/core"
+import Newsletter from "common/components/Newsletter"
 
 const IndexPage = () => {
   const dispatch = useDispatch()
@@ -21,7 +22,7 @@ const IndexPage = () => {
       <IsEthCongested />
       <Divider />
       <GasTrackers />
-      <Divider />
+      <Newsletter />
       <GasTrendChart />
       <Box display="flex" justifyContent="center" mt={4}>
         <iframe

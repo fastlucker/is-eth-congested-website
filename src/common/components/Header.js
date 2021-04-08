@@ -58,12 +58,14 @@ const Header = ({ siteTitle }) => {
                 "loading"
               )} `}
               icon={<WidgetsIcon fontSize={"small"} />}
+              color="primary"
             />
           </Box>
           <Box px={1}>
             <Chip
               label={`${get(gasInfo, "ethPrice", 0)} ETH/USD`}
               icon={<MoneyIcon fontSize={"small"} />}
+              color="primary"
             />
           </Box>
         </Toolbar>

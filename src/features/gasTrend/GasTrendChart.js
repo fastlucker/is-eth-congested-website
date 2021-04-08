@@ -9,7 +9,7 @@ import {
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.background.paper,
   },
 }))
 
@@ -31,7 +31,7 @@ export default function GasTrendChart() {
           Last 7 Days Gas Trend
         </Typography>
       </Box>
-      <Paper className={classes.paper} elevation={3}>
+      <Paper className={classes.paper}>
         <Box p={3}>
           <Box height={400}>
             <LineChart

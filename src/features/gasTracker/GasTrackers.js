@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     margin: "auto",
     maxWidth: 500,
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.background.paper,
   },
   control: {
     padding: theme.spacing(2),
@@ -28,8 +28,7 @@ const useStyles = makeStyles(theme => ({
   adPaper: {
     border: 0,
     borderRadius: 4,
-    boxShadow:
-      "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)",
+    boxShadow: theme.shadows[1],
   },
   emoji: {
     width: "100%",
@@ -88,7 +87,7 @@ export default function GasTrackers() {
             },
           ].map((value, idx) => (
             <Grid key={idx} item xs>
-              <Paper elevation={4} color="primary" className={classes.paper}>
+              <Paper color="primary" className={classes.paper}>
                 <Grid container spacing={2}>
                   <Box
                     display="flex"
