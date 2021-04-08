@@ -11,7 +11,7 @@ import { ThemeProvider } from "@material-ui/core/styles"
 import { useStaticQuery, graphql } from "gatsby"
 import { defaultTheme } from "themes"
 import { Container, Box } from "@material-ui/core"
-import Header from "common/components/header"
+import Header from "common/components/Header"
 import "./layout.css"
 
 const Layout = ({ children }) => {

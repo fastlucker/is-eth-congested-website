@@ -1,7 +1,7 @@
 import * as React from "react"
 
 import Layout from "templates/layout"
-import SEO from "common/components/seo"
+import SEO from "common/components/SEO"
 
 const NotFoundPage = () => (
   <Layout>

@@ -56,7 +56,7 @@ export default function GasTrackers() {
               gasInfoNaming: "slow",
             },
             {
-              emoji: "🐰",
+              emoji: "🐇",
               title: "Normal",
               time: "under 5 minutes",
               gasInfoNaming: "normal",
