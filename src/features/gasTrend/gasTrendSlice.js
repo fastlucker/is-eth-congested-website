@@ -74,24 +74,20 @@ export const selectGasTrendAverage = createSelector(
 
 export const selectGasTrendChartData = state => [
   {
-    id: "🐢 Slow",
-    color: "hsl(359, 70%, 50%)",
-    data: selectChartData(state, "slow"),
-  },
-  {
-    id: "🐇 Normal",
-    color: "hsl(127, 70%, 50%))",
-    data: selectChartData(state, "normal"),
+    id: "⚡ Instant",
+    data: selectChartData(state, "instant"),
   },
   {
     id: "🚀 Fast",
-    color: "hsl(25, 70%, 50%)",
     data: selectChartData(state, "fast"),
   },
   {
-    id: "⚡ Ultra Fast",
-    color: "hsl(342, 70%, 50%)",
-    data: selectChartData(state, "instant"),
+    id: "🐇 Normal",
+    data: selectChartData(state, "normal"),
+  },
+  {
+    id: "🐢 Slow",
+    data: selectChartData(state, "slow"),
   },
 ]
 

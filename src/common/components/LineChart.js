@@ -21,7 +21,8 @@ const markerBuilder = ({ value, axis = "y", title = "average" }) => ({
   textStyle: {
     fontFamily: "monospace",
   },
-  legendOrientation: "horizontal",
+  legendOrientation: "vertical",
+  legendPosition: "right",
 })
 
 export const LineChart = ({ data, markers }) => (
@@ -29,16 +30,16 @@ export const LineChart = ({ data, markers }) => (
     data={data}
     curve="natural"
     margin={{ top: 50, right: 30, bottom: 50, left: 60 }}
-    xScale={{ type: "point", min: 0, max: "auto" }}
+    xScale={{ type: "point", max: "auto" }}
     yScale={{
       type: "linear",
-      min: "0",
+      min: 0,
       max: "auto",
-      stacked: true,
+      stacked: false,
       reverse: false,
     }}
+    colors={{ scheme: "spectral" }}
     markers={[
-      //TODO
       ...markers.map(({ title, value }) =>
         markerBuilder({ title: `${title} (${value} gwei)`, value })
       ),

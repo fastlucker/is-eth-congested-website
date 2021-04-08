@@ -69,7 +69,7 @@ export default function GasTrackers() {
             },
             {
               emoji: "⚡",
-              title: "Ultra Fast",
+              title: "Instant",
               time: "under 30 seconds",
               gasInfoNaming: "instant",
             },

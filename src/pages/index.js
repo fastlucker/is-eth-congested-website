@@ -306,7 +306,7 @@ const IndexPage = () => {
           <Box height={400} p={3}>
             <LineChart
               data={data}
-              markers={[{ title: "average", value: normalAverage }]}
+              markers={[{ title: "average normal", value: normalAverage }]}
             />
           </Box>
         </Paper>
