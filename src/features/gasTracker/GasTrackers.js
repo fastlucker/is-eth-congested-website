@@ -14,6 +14,7 @@ import get from "lodash.get"
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
+    paddingBottom: theme.spacing(4),
   },
   paper: {
     padding: theme.spacing(2),
@@ -39,14 +40,20 @@ const useStyles = makeStyles(theme => ({
 
 export default function GasTrackers() {
   const classes = useStyles()
-  const dispatch = useDispatch()
   const gasInfo = useSelector(selectGasInfo)
-  useEffect(() => {
-    dispatch(fetchGasInfoAsync())
-  }, [])
   return (
     <Grid container className={classes.root} spacing={2}>
       <Grid item xs={12}>
+        <Box py={2}>
+          <Typography
+            align="center"
+            variant="h5"
+            component="h2"
+            color="textSecondary"
+          >
+            Current Gas Price
+          </Typography>
+        </Box>
         <Grid container justify="center" spacing={2}>
           {[
             {

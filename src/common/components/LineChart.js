@@ -81,7 +81,6 @@ export const LineChart = ({ data, markers }) => (
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: "transportation",
       legendOffset: 36,
       legendPosition: "middle",
     }}
@@ -90,7 +89,7 @@ export const LineChart = ({ data, markers }) => (
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: "count",
+      legend: "gwei",
       legendOffset: -40,
       legendPosition: "middle",
     }}
@@ -106,7 +105,7 @@ export const LineChart = ({ data, markers }) => (
         anchor: "top",
         direction: "row",
         justify: false,
-        translateX: 50,
+        translateX: 0,
         translateY: -50,
         itemsSpacing: 0,
         itemDirection: "left-to-right",

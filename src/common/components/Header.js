@@ -14,6 +14,7 @@ import {
 import {
   WidgetsRounded as WidgetsIcon,
   AccessTimeRounded as TimeIcon,
+  AttachMoneyRounded as MoneyIcon,
   EvStationRounded as EvStationIcon,
 } from "@material-ui/icons"
 import { useSelector } from "react-redux"
@@ -51,16 +52,20 @@ const Header = ({ siteTitle }) => {
           {/* TODO: maybe do something on the right side as well */}
           <Box px={1}>
             <Chip
-              label={get(gasInfo, `sources.0.lastBlock`, "loading")}
+              label={`Block # ${get(
+                gasInfo,
+                `sources.0.lastBlock`,
+                "loading"
+              )} `}
               icon={<WidgetsIcon fontSize={"small"} />}
             />
           </Box>
-          {/* <Box px={1}>
+          <Box px={1}>
             <Chip
-              label={`${block_time.toFixed(2)}s`}
-              icon={<TimeIcon fontSize={"small"} />}
+              label={`${get(gasInfo, "ethPrice", 0)} ETH/USD`}
+              icon={<MoneyIcon fontSize={"small"} />}
             />
-          </Box> */}
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>

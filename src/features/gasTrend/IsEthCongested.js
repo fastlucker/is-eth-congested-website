@@ -1,28 +1,30 @@
-import React, { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { selectGasInfo } from "features/gasTracker/gasTrackerSlice"
-import {
-  fetchGasTrendAsync,
-  selectGasTrend,
-} from "features/gasTrend/gasTrendSlice"
+import React from "react"
+import { useSelector } from "react-redux"
+import { selectGasInfoBySpeed } from "features/gasTracker/gasTrackerSlice"
+import { selectGasTrendAverage } from "features/gasTrend/gasTrendSlice"
 import { Box, Grid, Typography } from "@material-ui/core"
 
 export default function IsEthCongested() {
-  const dispatch = useDispatch()
-  const gasInfo = useSelector(selectGasInfo)
-  const gasTrend = useSelector(selectGasTrend)
-  useEffect(() => {
-    dispatch(fetchGasTrendAsync(7))
-  }, [])
+  const normalGasInfo = useSelector(state =>
+    selectGasInfoBySpeed(state, "normal")
+  )
+  const normalAverage = useSelector(state =>
+    selectGasTrendAverage(state, "normal")
+  )
+  const isCongested = normalGasInfo.gwei > normalAverage
   return (
-    <Box p={4}>
+    <Box py={4}>
       <Grid container>
         <Grid item xs={12}>
-          <Typography align="center" variant="h3">
+          <Typography align="center" variant="h4">
             Is Ethereum Congested?
           </Typography>
-          <Typography align="center" variant="h3" color="error">
-            Yes!
+          <Typography
+            align="center"
+            variant="h3"
+            color={isCongested ? "error" : "primary"}
+          >
+            {isCongested ? "Yes!" : "No!"}
           </Typography>
         </Grid>
       </Grid>
