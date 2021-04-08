@@ -9,7 +9,7 @@ import {
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.primary.main,
   },
 }))
 

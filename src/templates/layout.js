@@ -7,11 +7,12 @@
 
 import * as React from "react"
 import PropTypes from "prop-types"
-import { ThemeProvider } from "@material-ui/core/styles"
+import { StyledProvider } from "components-extra"
 import { useStaticQuery, graphql } from "gatsby"
 import { defaultTheme } from "themes"
 import { Container, Box } from "@material-ui/core"
 import Header from "common/components/Header"
+import Footer from "common/components/Footer"
 import "./layout.css"
 
 const Layout = ({ children }) => {
@@ -26,12 +27,13 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <StyledProvider theme={defaultTheme}>
       <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
       <Container>
         <Box py={3}>{children}</Box>
       </Container>
-    </ThemeProvider>
+      <Footer />
+    </StyledProvider>
   )
 }
 

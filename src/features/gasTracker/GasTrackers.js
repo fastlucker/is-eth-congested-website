@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     margin: "auto",
     maxWidth: 500,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.primary.main,
   },
   control: {
     padding: theme.spacing(2),
@@ -88,7 +88,7 @@ export default function GasTrackers() {
             },
           ].map((value, idx) => (
             <Grid key={idx} item xs>
-              <Paper elevation={4} color="default" className={classes.paper}>
+              <Paper elevation={4} color="primary" className={classes.paper}>
                 <Grid container spacing={2}>
                   <Box
                     display="flex"

@@ -35,7 +35,7 @@ const Header = ({ siteTitle }) => {
   const classes = useStyles()
   const gasInfo = useSelector(selectGasInfo)
   return (
-    <AppBar position="static" color="default">
+    <AppBar position="static" color="primary">
       <Container>
         <Toolbar variant="regular" disableGutters>
           <IconButton

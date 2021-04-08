@@ -22,7 +22,7 @@ export default function IsEthCongested() {
           <Typography
             align="center"
             variant="h3"
-            color={isCongested ? "error" : "primary"}
+            color={isCongested ? "error" : "secondary"}
           >
             {isCongested ? "Yes!" : "No!"}
           </Typography>
