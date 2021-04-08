@@ -8,18 +8,71 @@ import { ResponsiveLine } from "@nivo/line"
 
 // generate or change styles with this generator
 // https://nivo.rocks/line/
-export const LineChart = ({ data }) => (
+
+const markerBuilder = ({ value, axis = "y", title = "average" }) => ({
+  axis: axis,
+  value: value,
+  lineStyle: {
+    stroke: "#b0413e",
+    strokeWidth: 2,
+    strokeDasharray: "4 4",
+  },
+  legend: title,
+  textStyle: {
+    fontFamily: "monospace",
+  },
+  legendOrientation: "horizontal",
+})
+
+export const LineChart = ({ data, markers }) => (
   <ResponsiveLine
     data={data}
-    margin={{ top: 60, right: 20, bottom: 50, left: 50 }}
-    xScale={{ type: "point" }}
+    curve="natural"
+    margin={{ top: 50, right: 30, bottom: 50, left: 60 }}
+    xScale={{ type: "point", min: 0, max: "auto" }}
     yScale={{
       type: "linear",
-      min: "auto",
+      min: "0",
       max: "auto",
       stacked: true,
       reverse: false,
     }}
+    markers={[
+      //TODO
+      ...markers.map(({ title, value }) =>
+        markerBuilder({ title: `${title} (${value} gwei)`, value })
+      ),
+    ]}
+    theme={{
+      textColor: "#333333",
+      fontSize: 11,
+      fontFamily: "monospace",
+      axis: {
+        domain: {
+          line: {
+            stroke: "#777777",
+            strokeWidth: 1,
+          },
+        },
+        ticks: {
+          line: {
+            stroke: "#777777",
+            strokeWidth: 1,
+          },
+        },
+      },
+      grid: {
+        line: {
+          stroke: "#dddddd",
+          strokeWidth: 1,
+        },
+      },
+      tooltip: {
+        basic: { fontFamily: "monospace" },
+        tableCell: { fontFamily: "monospace" },
+      },
+    }}
+    yFormat=" >-.2f"
     axisTop={null}
     axisRight={null}
     axisBottom={{
@@ -45,17 +98,18 @@ export const LineChart = ({ data }) => (
     pointBorderWidth={2}
     pointBorderColor={{ from: "serieColor" }}
     pointLabelYOffset={-12}
+    enableSlices="x"
     useMesh={true}
     legends={[
       {
         anchor: "top",
         direction: "row",
         justify: false,
-        translateX: 0,
+        translateX: 50,
         translateY: -50,
         itemsSpacing: 0,
         itemDirection: "left-to-right",
-        itemWidth: 80,
+        itemWidth: 100,
         itemHeight: 20,
         itemOpacity: 0.75,
         symbolSize: 12,

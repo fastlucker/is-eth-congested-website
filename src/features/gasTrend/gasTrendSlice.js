@@ -1,5 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit"
 import { ethGasWatchApi } from "common/api"
+import { get } from "lodash"
 
 const initialState = {
   data: {},
@@ -46,5 +47,52 @@ export const { setData } = gasTrendSlice.actions
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectGasTrend = state => state.gasTrend
+
+export const selectChartData = createSelector(
+  selectGasTrend,
+  (_, dataNaming) => dataNaming,
+  (gasTrend, dataNaming) => {
+    console.log(dataNaming)
+    const labels = get(gasTrend, `data.labels`, [])
+    const dataPoints = get(gasTrend, `data.${dataNaming}`, [])
+    return labels.reduce(
+      (prev = [], curr, index) => [...prev, { x: curr, y: dataPoints[index] }],
+      []
+    )
+  }
+)
+
+export const selectGasTrendAverage = createSelector(
+  selectGasTrend,
+  (_, dataNaming) => dataNaming,
+  (gasTrend, dataNaming) => {
+    const dataPoints = get(gasTrend, `data.${dataNaming}`, [])
+    const sum = dataPoints.reduce((a, b) => a + b, 0)
+    return sum / dataPoints.length || 0
+  }
+)
+
+export const selectGasTrendChartData = state => [
+  {
+    id: "🐢 Slow",
+    color: "hsl(359, 70%, 50%)",
+    data: selectChartData(state, "slow"),
+  },
+  {
+    id: "🐇 Normal",
+    color: "hsl(127, 70%, 50%))",
+    data: selectChartData(state, "normal"),
+  },
+  {
+    id: "🚀 Fast",
+    color: "hsl(25, 70%, 50%)",
+    data: selectChartData(state, "fast"),
+  },
+  {
+    id: "⚡ Ultra Fast",
+    color: "hsl(342, 70%, 50%)",
+    data: selectChartData(state, "instant"),
+  },
+]
 
 export default gasTrendSlice.reducer
