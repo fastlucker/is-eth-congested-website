@@ -13,7 +13,7 @@ export default function IsEthCongested() {
   )
   const isCongested = normalGasInfo.gwei > normalAverage
   return (
-    <Box py={4}>
+    <Box py={2}>
       <Grid container>
         <Grid item xs={12}>
           <Typography align="center" variant="h4">
