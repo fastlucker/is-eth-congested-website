@@ -52,7 +52,6 @@ export const selectChartData = createSelector(
   selectGasTrend,
   (_, dataNaming) => dataNaming,
   (gasTrend, dataNaming) => {
-    console.log(dataNaming)
     const labels = get(gasTrend, `data.labels`, [])
     const dataPoints = get(gasTrend, `data.${dataNaming}`, [])
     return labels.reduce(
