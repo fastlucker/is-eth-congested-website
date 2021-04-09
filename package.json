@@ -29,6 +29,7 @@
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
     "react-redux": "^7.2.3",
+    "react-tinacms-github": "^0.39.0",
     "styled-components": "^5.2.3",
     "tinacms": "^0.39.0"
   },
@@ -42,7 +43,7 @@
   "license": "0BSD",
   "scripts": {
     "build": "gatsby build",
-    "develop": "gatsby develop",
+    "develop": "gatsby develop -p 3000 -o",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",

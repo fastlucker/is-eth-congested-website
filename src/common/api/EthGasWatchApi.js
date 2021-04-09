@@ -1,5 +1,5 @@
 // this proxy is also good but they do some caching or something
-// which gives back old data
+// which gives back old/inaccurate data
 const fetchFromAllOriginsProxyJSON = (input, init) =>
   fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(input)}`, init)
     .then(response => {
