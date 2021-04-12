@@ -1,5 +1,5 @@
 const path = require("path")
-
+const config = require("./src/config")
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -32,18 +32,25 @@ module.exports = {
     },
     `gatsby-plugin-gatsby-cloud`,
     `gatsby-plugin-resolve-src`,
+    {
+      resolve: `gatsby-plugin-material-ui`,
+      options: {
+        stylesProvider: {
+          injectFirst: true,
+        },
+      },
+    },
     `gatsby-plugin-styled-components`,
     {
-      resolve: "gatsby-plugin-tinacms",
+      resolve: "@builder.io/gatsby",
       options: {
-        enabled: process.env.NODE_ENV !== "production",
-        sidebar: true,
-        plugins: [
-          "gatsby-tinacms-git",
-          "gatsby-tinacms-remark",
-          "gatsby-tinacms-json",
-        ],
-        manualInit: true,
+        /** TODO: update this with your API key! */
+        publicAPIKey: config.builderAPIKey,
+        templates: {
+          // Render every `page` model as a new page using the /page.tsx template
+          // based on the URL provided in Builder.io
+          landingPage: path.resolve("src/templates/layout.js"),
+        },
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
