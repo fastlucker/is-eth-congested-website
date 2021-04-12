@@ -1,6 +1,7 @@
 import * as React from "react"
 import PropTypes from "prop-types"
 // import { Link } from "gatsby"
+import { Builder } from "@builder.io/react"
 import { makeStyles } from "@material-ui/core/styles"
 import {
   AppBar,
@@ -68,6 +69,20 @@ const Header = ({ siteTitle }) => {
     </AppBar>
   )
 }
+
+Builder.registerComponent(Header, {
+  name: "header",
+  // Optionally give a custom icon (image url - ideally a black on transparent bg svg or png)
+  image:
+    "https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2Fd6d3bc814ffd47b182ec8345cc5438c0",
+  inputs: [
+    {
+      name: "title",
+      type: "string",
+      defaultValue: "Your Title Here",
+    },
+  ],
+})
 
 Header.propTypes = {
   siteTitle: PropTypes.string,

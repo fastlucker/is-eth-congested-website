@@ -1,5 +1,5 @@
 const path = require("path")
-
+const config = require("./src/config")
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -37,6 +37,21 @@ module.exports = {
       options: {
         stylesProvider: {
           injectFirst: true,
+        },
+      },
+    },
+    {
+      resolve: "@builder.io/gatsby",
+      options: {
+        // public API Key
+        publicAPIKey: config.builderAPIKey,
+        // optional
+        // mapping model names to template files, the plugin will create a page for each entry of the model at its specified url
+        custom404Dev: path.resolve("src/pages/404.js"),
+        templates: {
+          // Render every `page` model as a new page using the /page.tsx template
+          // based on the URL provided in Builder.io
+          page: path.resolve("src/templates/layout"),
         },
       },
     },

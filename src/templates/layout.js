@@ -13,6 +13,8 @@ import { defaultTheme } from "themes"
 import { Container, Box } from "@material-ui/core"
 import Header from "common/components/Header"
 import Footer from "common/components/Footer"
+import { BuilderComponent } from "@builder.io/react"
+import "../../builder-settings"
 import "./layout.css"
 
 const Layout = ({ children }) => {
@@ -28,7 +30,8 @@ const Layout = ({ children }) => {
 
   return (
     <StyledProvider theme={defaultTheme}>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+      <BuilderComponent modelName="header" content="header" />
+      {/* <Header siteTitle={data.site.siteMetadata?.title || `Title`} /> */}
       <Container>
         <Box py={3}>{children}</Box>
       </Container>
