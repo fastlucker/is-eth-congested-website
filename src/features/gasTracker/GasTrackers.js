@@ -110,7 +110,7 @@ export default function GasTrackers() {
                           {value.title}
                         </Typography>
                         <Typography align="center" variant="h2">
-                          {get(gasInfo, `${value.gasInfoNaming}.gwei`, 0)}
+                          {gasInfo?.[value.gasInfoNaming]?.gwei ?? 0}
                         </Typography>
                         <Typography
                           align="center"
@@ -124,7 +124,7 @@ export default function GasTrackers() {
                           variant="body2"
                           color="textSecondary"
                         >
-                          💸 {get(gasInfo, `${value.gasInfoNaming}.usd`, 0)}$
+                          💸 {gasInfo?.[value.gasInfoNaming]?.usd ?? 0}$
                         </Typography>
                       </Box>
                     </Grid>

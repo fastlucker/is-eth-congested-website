@@ -52,18 +52,14 @@ const Header = ({ siteTitle }) => {
           {/* TODO: maybe do something on the right side as well */}
           <Box px={1}>
             <Chip
-              label={`Block # ${get(
-                gasInfo,
-                `sources.0.lastBlock`,
-                "loading"
-              )} `}
+              label={`Block # ${gasInfo?.sources?.[0]?.lastBlock ?? "loading"}`}
               icon={<WidgetsIcon fontSize={"small"} />}
               color="primary"
             />
           </Box>
           <Box px={1}>
             <Chip
-              label={`${get(gasInfo, "ethPrice", 0)} ETH/USD`}
+              label={`${gasInfo?.ethPrice ?? 0} ETH/USD`}
               icon={<MoneyIcon fontSize={"small"} />}
               color="primary"
             />

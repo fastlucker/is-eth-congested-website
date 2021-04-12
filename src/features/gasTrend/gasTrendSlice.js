@@ -52,8 +52,8 @@ export const selectChartData = createSelector(
   selectGasTrend,
   (_, dataNaming) => dataNaming,
   (gasTrend, dataNaming) => {
-    const labels = get(gasTrend, `data.labels`, [])
-    const dataPoints = get(gasTrend, `data.${dataNaming}`, [])
+    const labels = gasTrend?.data?.labels ?? []
+    const dataPoints = gasTrend?.data?.[dataNaming] ?? []
     return labels.reduce(
       (prev = [], curr, index) => [...prev, { x: curr, y: dataPoints[index] }],
       []
@@ -65,7 +65,7 @@ export const selectGasTrendAverage = createSelector(
   selectGasTrend,
   (_, dataNaming) => dataNaming,
   (gasTrend, dataNaming) => {
-    const dataPoints = get(gasTrend, `data.${dataNaming}`, [])
+    const dataPoints = gasTrend?.data?.[dataNaming] ?? []
     const sum = dataPoints.reduce((a, b) => a + b, 0)
     return sum / dataPoints.length || 0
   }

@@ -43,12 +43,12 @@ export const gasTrackerSlice = createSlice({
 
 export const { setData } = gasTrackerSlice.actions
 
-export const selectGasInfo = state => get(state, `gasTracker.data`, {})
+export const selectGasInfo = state => state?.gasTracker?.data ?? {} // nullish coalescing operator
 
 export const selectGasInfoBySpeed = createSelector(
   selectGasInfo,
   (_, dataNaming) => dataNaming,
-  (gasInfo, dataNaming) => get(gasInfo, `${dataNaming}`, { gwei: 0, usd: 0 })
+  (gasInfo, dataNaming) => gasInfo?.[dataNaming] ?? { gwei: 0, usd: 0 }
 )
 
 export default gasTrackerSlice.reducer
