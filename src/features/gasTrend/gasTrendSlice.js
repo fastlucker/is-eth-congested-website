@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit"
 import { ethGasWatchApi } from "common/api"
-import { get } from "lodash"
 
 const initialState = {
   data: {},

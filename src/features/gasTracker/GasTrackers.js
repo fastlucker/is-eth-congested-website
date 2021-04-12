@@ -9,7 +9,6 @@ import {
 } from "@material-ui/core"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchGasInfoAsync, selectGasInfo } from "./gasTrackerSlice"
-import get from "lodash.get"
 
 const useStyles = makeStyles(theme => ({
   root: {
