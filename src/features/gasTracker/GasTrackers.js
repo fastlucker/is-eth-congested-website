@@ -159,11 +159,16 @@ export default function GasTrackers(props) {
           ))}
           {adexAdSrc && (
             <Grid item xs>
-              <Box display="flex" justifyContent="center" alignItems="center">
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                flexDirection="column"
+              >
                 <AdExIframe
                   src={adexAdSrc}
-                  width={300}
-                  height={250}
+                  requiredWidth={300}
+                  requiredHeight={250}
                   className={classes.adPaper}
                 />
               </Box>

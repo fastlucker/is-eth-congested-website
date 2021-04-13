@@ -3,16 +3,28 @@ import PropTypes from "prop-types"
 import { Builder } from "@builder.io/react"
 
 const validAdExURL = "https://viewm.moonicorn.network/#"
-function AdExIframe({ src, className }) {
+function AdExIframe({ src, className, requiredWidth, requiredHeight }) {
   const validSrc = (src || "").startsWith(validAdExURL)
   if (!validSrc) return "Invalid AdEx Ad src..." //TODO: return a better component
   const params = src.replace(validAdExURL, "")
   try {
-    const { width, height } = JSON.parse(decodeURIComponent(params))
-      ?.options ?? {
-      width: 250,
-      height: 300,
+    const { width, height } = JSON.parse(decodeURIComponent(params))?.options
+
+    if (
+      requiredWidth &&
+      requiredHeight &&
+      requiredWidth.toString() !== width &&
+      requiredHeight.toString() !== height
+    ) {
+      console.log("test")
+      return (
+        <>
+          <p>{`Please add an ad with dimensions: ${requiredWidth}x${requiredHeight}`}</p>
+          <p>{`Your ad dimensions: ${width}x${height}`}</p>
+        </>
+      )
     }
+
     return (
       <iframe
         src={`https://viewm.moonicorn.network/#${params}`}
