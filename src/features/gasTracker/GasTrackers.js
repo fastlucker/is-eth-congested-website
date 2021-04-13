@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchGasInfoAsync, selectGasInfo } from "./gasTrackerSlice"
+import { Builder } from "@builder.io/react"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,9 +43,46 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function GasTrackers() {
+const defaultValues = [
+  {
+    emoji: "🐢",
+    title: "Slow",
+    time: "under 30 minutes",
+    gasInfoNaming: "slow",
+  },
+  {
+    emoji: "🐇",
+    title: "Normal",
+    time: "under 5 minutes",
+    gasInfoNaming: "normal",
+  },
+  {
+    emoji: "🚀",
+    title: "Fast",
+    time: "under 2 minute",
+    gasInfoNaming: "fast",
+  },
+  {
+    emoji: "⚡",
+    title: "Instant",
+    time: "under 30 seconds",
+    gasInfoNaming: "instant",
+  },
+]
+
+export default function GasTrackers(props) {
   const classes = useStyles()
   const gasInfo = useSelector(selectGasInfo)
+  const {
+    cashEmoji,
+    timeEmoji,
+    firstBox,
+    secondBox,
+    thirdBox,
+    fourthBox,
+  } = props
+  const dataArray = [firstBox, secondBox, thirdBox, fourthBox]
+  const boxesDataArray = dataArray.some(i => !i) ? defaultValues : dataArray
   return (
     <Grid container className={classes.root} spacing={2}>
       <Grid item xs={12}>
@@ -59,32 +97,7 @@ export default function GasTrackers() {
           </Typography>
         </Box>
         <Grid container justify="space-between" spacing={2}>
-          {[
-            {
-              emoji: "🐢",
-              title: "Slow",
-              time: "under 30 minutes",
-              gasInfoNaming: "slow",
-            },
-            {
-              emoji: "🐇",
-              title: "Normal",
-              time: "under 5 minutes",
-              gasInfoNaming: "normal",
-            },
-            {
-              emoji: "🚀",
-              title: "Fast",
-              time: "under 2 minute",
-              gasInfoNaming: "fast",
-            },
-            {
-              emoji: "⚡",
-              title: "Instant",
-              time: "under 30 seconds",
-              gasInfoNaming: "instant",
-            },
-          ].map((value, idx) => (
+          {boxesDataArray.map((value, idx) => (
             <Grid key={idx} item xs>
               <Paper color="primary" className={classes.paper}>
                 <Grid container spacing={2}>
@@ -116,14 +129,15 @@ export default function GasTrackers() {
                           variant="body2"
                           color="textSecondary"
                         >
-                          ⏲ {value.time}
+                          {timeEmoji || "⏲"} {value.time}
                         </Typography>
                         <Typography
                           align="center"
                           variant="body2"
                           color="textSecondary"
                         >
-                          💸 {gasInfo?.[value.gasInfoNaming]?.usd ?? 0}$
+                          {cashEmoji || "💸"}{" "}
+                          {gasInfo?.[value.gasInfoNaming]?.usd ?? 0}$
                         </Typography>
                       </Box>
                     </Grid>
@@ -159,3 +173,84 @@ export default function GasTrackers() {
     </Grid>
   )
 }
+
+const commonFields = {
+  type: "object",
+  required: true,
+  subFields: [
+    {
+      name: "title",
+      type: "string",
+    },
+    {
+      name: "emoji",
+      type: "string",
+    },
+    {
+      name: "time",
+      type: "string",
+    },
+    {
+      name: "gasInfoNaming",
+      enum: ["slow", "normal", "fast", "instant"],
+    },
+  ],
+}
+
+Builder.registerComponent(GasTrackers, {
+  name: "GasTrackers",
+  // Optionally give a custom icon (image url - ideally a black on transparent bg svg or png)
+  image: "https://img.icons8.com/ios-filled/344/gas-station.png",
+  inputs: [
+    {
+      name: "timeEmoji",
+      type: "string",
+      defaultValue: "⏲",
+    },
+    {
+      name: "cashEmoji",
+      type: "string",
+      defaultValue: "💸",
+    },
+    {
+      name: "firstBox",
+      defaultValue: {
+        emoji: "🐢",
+        title: "Slow",
+        time: "under 30 minutes",
+        gasInfoNaming: "slow",
+      },
+      ...commonFields,
+    },
+    {
+      name: "secondBox",
+      defaultValue: {
+        emoji: "🐇",
+        title: "Normal",
+        time: "under 5 minutes",
+        gasInfoNaming: "normal",
+      },
+      ...commonFields,
+    },
+    {
+      name: "thirdBox",
+      defaultValue: {
+        emoji: "🚀",
+        title: "Fast",
+        time: "under 2 minute",
+        gasInfoNaming: "fast",
+      },
+      ...commonFields,
+    },
+    {
+      name: "fourthBox",
+      defaultValue: {
+        emoji: "⚡",
+        title: "Instant",
+        time: "under 30 seconds",
+        gasInfoNaming: "instant",
+      },
+      ...commonFields,
+    },
+  ],
+})

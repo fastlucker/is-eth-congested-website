@@ -22,7 +22,6 @@ const IndexPage = () => {
       <IsEthCongested />
       <Divider />
       <GasTrackers />
-      <Newsletter />
       <GasTrendChart />
       <Box display="flex" justifyContent="center" mt={4}>
         <iframe
