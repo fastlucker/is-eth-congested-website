@@ -5,7 +5,7 @@ import "@builder.io/widgets"
  * Import all custom components so you can use in the builder.io editor
  * https://www.builder.io/c/docs/custom-react-components
  */
-import "common/components/Header"
+import "common/components/Header.builder"
 import config from "./src/config"
 
 builder.init(config.builderAPIKey)

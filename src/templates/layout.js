@@ -18,24 +18,30 @@ import "../../builder-settings"
 import "./layout.css"
 
 const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
+  const { allBuilderModels: models } = useStaticQuery(graphql`
+    query HeaderFooterQuery {
+      allBuilderModels {
+        header(limit: 1, options: { cachebust: true }) {
+          content
+        }
+        footer(limit: 1, options: { cachebust: true }) {
+          content
         }
       }
     }
   `)
 
+  const header = models?.header[0]?.content ?? []
+  const footer = models?.footer[0]?.content ?? []
+  // console.log(data)
   return (
     <StyledProvider theme={defaultTheme}>
-      <BuilderComponent modelName="header" content="header" />
+      <BuilderComponent modelName="header" content={header} />
       {/* <Header siteTitle={data.site.siteMetadata?.title || `Title`} /> */}
       <Container>
         <Box py={3}>{children}</Box>
       </Container>
-      <Footer />
+      <BuilderComponent modelName="footer" content={footer} />
     </StyledProvider>
   )
 }

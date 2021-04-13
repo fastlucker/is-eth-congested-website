@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const Header = ({ siteTitle }) => {
+const Header = ({ title }) => {
   const classes = useStyles()
   const gasInfo = useSelector(selectGasInfo)
   return (
@@ -47,7 +47,7 @@ const Header = ({ siteTitle }) => {
             <EvStationIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Is Ethereum Congested?
+            {title || `Is Ethereum Congested?`}
           </Typography>
           {/* TODO: maybe do something on the right side as well */}
           <Box px={1}>
@@ -69,20 +69,6 @@ const Header = ({ siteTitle }) => {
     </AppBar>
   )
 }
-
-Builder.registerComponent(Header, {
-  name: "header",
-  // Optionally give a custom icon (image url - ideally a black on transparent bg svg or png)
-  image:
-    "https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2Fd6d3bc814ffd47b182ec8345cc5438c0",
-  inputs: [
-    {
-      name: "title",
-      type: "string",
-      defaultValue: "Your Title Here",
-    },
-  ],
-})
 
 Header.propTypes = {
   siteTitle: PropTypes.string,
