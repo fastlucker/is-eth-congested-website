@@ -57,7 +57,7 @@ export default function IsEthCongested(props) {
 Builder.registerComponent(IsEthCongested, {
   name: "Is Ethereum Congested?",
   // Optionally give a custom icon (image url - ideally a black on transparent bg svg or png)
-  image: "https://img.icons8.com/ios-filled/344/form.png",
+  image: "https://img.icons8.com/ios-filled/344/question.png",
   inputs: [
     {
       name: "title",

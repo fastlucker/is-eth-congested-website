@@ -6,9 +6,10 @@ import {
   Box,
   ButtonBase,
   Typography,
+  LinearProgress,
 } from "@material-ui/core"
-import { useDispatch, useSelector } from "react-redux"
-import { fetchGasInfoAsync, selectGasInfo } from "./gasTrackerSlice"
+import { useSelector } from "react-redux"
+import { selectGasInfo, selectGasInfoStatus } from "./gasTrackerSlice"
 import { Builder } from "@builder.io/react"
 
 const useStyles = makeStyles(theme => ({
@@ -29,6 +30,9 @@ const useStyles = makeStyles(theme => ({
     border: 0,
     borderRadius: 4,
     boxShadow: theme.shadows[1],
+  },
+  bar: {
+    borderRadius: "5px 5px 0 0",
   },
   emoji: {
     width: "100%",
@@ -73,6 +77,7 @@ const defaultValues = [
 export default function GasTrackers(props) {
   const classes = useStyles()
   const gasInfo = useSelector(selectGasInfo)
+  const status = useSelector(selectGasInfoStatus)
   const {
     title,
     adexAdSrc,
@@ -101,6 +106,9 @@ export default function GasTrackers(props) {
         <Grid container justify="space-between" spacing={2}>
           {boxesDataArray.map((value, idx) => (
             <Grid key={idx} item xs>
+              {status !== "idle" && (
+                <LinearProgress className={classes.bar} color="secondary" />
+              )}
               <Paper color="primary" className={classes.paper}>
                 <Grid container spacing={2}>
                   <Box
