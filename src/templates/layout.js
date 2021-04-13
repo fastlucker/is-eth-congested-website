@@ -18,7 +18,7 @@ import "../../builder-settings"
 import "./layout.css"
 
 const Layout = ({ data }) => {
-  const { allBuilderModels: models } = data
+  const models = data?.allBuilderModels
   const header = models?.header[0]?.content ?? []
   const footer = models?.footer[0]?.content ?? []
   const page = models?.page[0]?.content ?? []
@@ -27,6 +27,7 @@ const Layout = ({ data }) => {
     dispatch(fetchGasTrendAsync(7))
     dispatch(fetchGasInfoAsync())
   }, [])
+
   return (
     <StyledProvider theme={defaultTheme}>
       <BuilderComponent modelName="header" content={header} />
