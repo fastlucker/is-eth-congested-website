@@ -74,6 +74,8 @@ export default function GasTrackers(props) {
   const classes = useStyles()
   const gasInfo = useSelector(selectGasInfo)
   const {
+    title,
+    adexAdSrc,
     cashEmoji,
     timeEmoji,
     firstBox,
@@ -93,7 +95,7 @@ export default function GasTrackers(props) {
             component="h2"
             color="textSecondary"
           >
-            Current Gas Price
+            {title || "Current Gas Price"}
           </Typography>
         </Box>
         <Grid container justify="space-between" spacing={2}>
@@ -146,28 +148,29 @@ export default function GasTrackers(props) {
               </Paper>
             </Grid>
           ))}
-          <Grid item xs>
-            {/* <Paper elevation={4}> */}
-            <Box display="flex" justifyContent="center" alignItems="center">
-              <iframe
-                src="https://viewm.moonicorn.network/#%7B%22options%22%3A%7B%22publisherAddr%22%3A%220xB7d3F81E857692d13e9D63b232A90F4A1793189E%22%2C%22whitelistedTokens%22%3A%5B%220x6B175474E89094C44Da98b954EedeAC495271d0F%22%5D%2C%22whitelistedType%22%3A%22legacy_300x250%22%2C%22randomize%22%3Atrue%2C%22targeting%22%3A%5B%5D%2C%22width%22%3A%22300%22%2C%22height%22%3A%22250%22%2C%22minPerImpression%22%3A%220%22%2C%22fallbackUnit%22%3Anull%2C%22marketSlot%22%3A%22QmbYBxNPKp2ujNVKsGSRWYMoPZ54vrqYRo1tTJ3nxvyLMX%22%7D%7D"
-                width="300"
-                height="250"
-                scrolling="no"
-                frameborder="0"
-                className={classes.adPaper}
-                onload="window.addEventListener('message', function(ev) { 
-		if (ev.data.hasOwnProperty('adexHeight') && ('https://viewm.moonicorn.network' === ev.origin)) {
-			for (let f of document.getElementsByTagName('iframe')) {	
-				if (f.contentWindow === ev.source) {
-					f.height = ev.data.adexHeight;
-				}
-			}	
-		}
-	}, false)"
-              ></iframe>
-            </Box>
-          </Grid>
+          {adexAdSrc && (
+            <Grid item xs>
+              <Box display="flex" justifyContent="center" alignItems="center">
+                <iframe
+                  src="https://viewm.moonicorn.network/#%7B%22options%22%3A%7B%22publisherAddr%22%3A%220xB7d3F81E857692d13e9D63b232A90F4A1793189E%22%2C%22whitelistedTokens%22%3A%5B%220x6B175474E89094C44Da98b954EedeAC495271d0F%22%5D%2C%22whitelistedType%22%3A%22legacy_300x250%22%2C%22randomize%22%3Atrue%2C%22targeting%22%3A%5B%5D%2C%22width%22%3A%22300%22%2C%22height%22%3A%22250%22%2C%22minPerImpression%22%3A%220%22%2C%22fallbackUnit%22%3Anull%2C%22marketSlot%22%3A%22QmbYBxNPKp2ujNVKsGSRWYMoPZ54vrqYRo1tTJ3nxvyLMX%22%7D%7D"
+                  width="300"
+                  height="250"
+                  scrolling="no"
+                  frameborder="0"
+                  className={classes.adPaper}
+                  onload="window.addEventListener('message', function(ev) { 
+                       if (ev.data.hasOwnProperty('adexHeight') && ('https://viewm.moonicorn.network' === ev.origin)) {
+                         for (let f of document.getElementsByTagName('iframe')) {	
+                           if (f.contentWindow === ev.source) {
+                             f.height = ev.data.adexHeight;
+                           }
+                         }	
+                       }
+                     }, false)"
+                ></iframe>
+              </Box>
+            </Grid>
+          )}
         </Grid>
       </Grid>
     </Grid>
@@ -202,6 +205,17 @@ Builder.registerComponent(GasTrackers, {
   // Optionally give a custom icon (image url - ideally a black on transparent bg svg or png)
   image: "https://img.icons8.com/ios-filled/344/gas-station.png",
   inputs: [
+    {
+      name: "adexAdSrc",
+      type: "string",
+      defaultValue:
+        "https://viewm.moonicorn.network/#%7B%22options%22%3A%7B%22publisherAddr%22%3A%220xB7d3F81E857692d13e9D63b232A90F4A1793189E%22%2C%22whitelistedTokens%22%3A%5B%220x6B175474E89094C44Da98b954EedeAC495271d0F%22%5D%2C%22whitelistedType%22%3A%22legacy_300x250%22%2C%22randomize%22%3Atrue%2C%22targeting%22%3A%5B%5D%2C%22width%22%3A%22300%22%2C%22height%22%3A%22250%22%2C%22minPerImpression%22%3A%220%22%2C%22fallbackUnit%22%3Anull%2C%22marketSlot%22%3A%22QmbYBxNPKp2ujNVKsGSRWYMoPZ54vrqYRo1tTJ3nxvyLMX%22%7D%7D",
+    },
+    {
+      name: "title",
+      type: "string",
+      defaultValue: "Current Gas Price",
+    },
     {
       name: "timeEmoji",
       type: "string",
