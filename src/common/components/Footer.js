@@ -11,7 +11,7 @@ export default function CustomFooter({ title }) {
   )
 }
 
-Builder.registerComponent(Footer, {
+Builder.registerComponent(CustomFooter, {
   // NOTE: never name a component the same as a model
   name: "Footer",
   // Optionally give a custom icon (image url - ideally a black on transparent bg svg or png)
@@ -22,5 +22,6 @@ Builder.registerComponent(Footer, {
       type: "string",
       defaultValue: "Your Title Here",
     },
+    //TODO: add a section where other components can be added w/ drag n drop (e.g Links)
   ],
 })

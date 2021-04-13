@@ -67,7 +67,7 @@ export default function GasTrendChart({
 Builder.registerComponent(GasTrendChart, {
   name: "Gas Trend Chart",
   // Optionally give a custom icon (image url - ideally a black on transparent bg svg or png)
-  image: "https://img.icons8.com/ios-filled/344/question.png",
+  image: "https://img.icons8.com/ios-filled/344/combo-chart--v1.png",
   inputs: [
     {
       name: "title",

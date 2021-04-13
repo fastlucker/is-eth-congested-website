@@ -11,6 +11,7 @@ import {
 import { useSelector } from "react-redux"
 import { selectGasInfo, selectGasInfoStatus } from "./gasTrackerSlice"
 import { Builder } from "@builder.io/react"
+import AdExIframe from "common/components/AdExIframe"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -159,23 +160,12 @@ export default function GasTrackers(props) {
           {adexAdSrc && (
             <Grid item xs>
               <Box display="flex" justifyContent="center" alignItems="center">
-                <iframe
-                  src="https://viewm.moonicorn.network/#%7B%22options%22%3A%7B%22publisherAddr%22%3A%220xB7d3F81E857692d13e9D63b232A90F4A1793189E%22%2C%22whitelistedTokens%22%3A%5B%220x6B175474E89094C44Da98b954EedeAC495271d0F%22%5D%2C%22whitelistedType%22%3A%22legacy_300x250%22%2C%22randomize%22%3Atrue%2C%22targeting%22%3A%5B%5D%2C%22width%22%3A%22300%22%2C%22height%22%3A%22250%22%2C%22minPerImpression%22%3A%220%22%2C%22fallbackUnit%22%3Anull%2C%22marketSlot%22%3A%22QmbYBxNPKp2ujNVKsGSRWYMoPZ54vrqYRo1tTJ3nxvyLMX%22%7D%7D"
-                  width="300"
-                  height="250"
-                  scrolling="no"
-                  frameborder="0"
+                <AdExIframe
+                  src={adexAdSrc}
+                  width={300}
+                  height={250}
                   className={classes.adPaper}
-                  onload="window.addEventListener('message', function(ev) { 
-                       if (ev.data.hasOwnProperty('adexHeight') && ('https://viewm.moonicorn.network' === ev.origin)) {
-                         for (let f of document.getElementsByTagName('iframe')) {	
-                           if (f.contentWindow === ev.source) {
-                             f.height = ev.data.adexHeight;
-                           }
-                         }	
-                       }
-                     }, false)"
-                ></iframe>
+                />
               </Box>
             </Grid>
           )}

@@ -5,47 +5,55 @@
  * See: https://www.gatsbyjs.com/docs/use-static-query/
  */
 
-import * as React from "react"
-import PropTypes from "prop-types"
+import React, { useEffect } from "react"
 import { StyledProvider } from "components-extra"
-import { useStaticQuery, graphql } from "gatsby"
+import { graphql } from "gatsby"
 import { defaultTheme } from "themes"
 import { Container, Box } from "@material-ui/core"
-import Header from "common/components/Header"
-import Footer from "common/components/Footer"
 import { BuilderComponent } from "@builder.io/react"
+import { useDispatch } from "react-redux"
+import { fetchGasInfoAsync } from "features/gasTracker/gasTrackerSlice"
+import { fetchGasTrendAsync } from "features/gasTrend/gasTrendSlice"
 import "../../builder-settings"
 import "./layout.css"
 
-const Layout = ({ children }) => {
-  const { allBuilderModels: models } = useStaticQuery(graphql`
-    query HeaderFooterQuery {
-      allBuilderModels {
-        header(limit: 1, options: { cachebust: true }) {
-          content
-        }
-        footer(limit: 1, options: { cachebust: true }) {
-          content
-        }
-      }
-    }
-  `)
-
+const Layout = ({ data }) => {
+  const { allBuilderModels: models } = data
   const header = models?.header[0]?.content ?? []
   const footer = models?.footer[0]?.content ?? []
+  const page = models?.page[0]?.content ?? []
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchGasTrendAsync(7))
+    dispatch(fetchGasInfoAsync())
+  }, [])
   return (
     <StyledProvider theme={defaultTheme}>
       <BuilderComponent modelName="header" content={header} />
       <Container>
-        <Box py={3}>{children}</Box>
+        <Box py={3}>
+          <BuilderComponent modelName="page" content={page} />
+        </Box>
       </Container>
       <BuilderComponent modelName="footer" content={footer} />
     </StyledProvider>
   )
 }
 
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
-
 export default Layout
+
+export const query = graphql`
+  query LayoutQuery($path: String!) {
+    allBuilderModels {
+      header(limit: 1, options: { cachebust: true }) {
+        content
+      }
+      footer(limit: 1, options: { cachebust: true }) {
+        content
+      }
+      page(target: { urlPath: $path }, limit: 1, options: { cachebust: true }) {
+        content
+      }
+    }
+  }
+`

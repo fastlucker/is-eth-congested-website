@@ -11,6 +11,7 @@ import "common/components/Footer"
 import "common/components/Newsletter"
 import "features/gasTracker/GasTrackers"
 import "features/gasTrend/IsEthCongested"
+import "features/gasTrend/GasTrendChart"
 import config from "./src/config"
 
 builder.init(config.builderAPIKey)
