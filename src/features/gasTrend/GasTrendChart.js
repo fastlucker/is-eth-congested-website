@@ -32,6 +32,7 @@ export default function GasTrendChart({
   const classes = useStyles()
   const data = useSelector(selectGasTrendChartData)
   const status = useSelector(selectGasTrendStatus)
+  const statusLoading = status !== "idle"
   const normalAverage = useSelector(state =>
     selectGasTrendAverage(state, "normal")
   )
@@ -48,14 +49,18 @@ export default function GasTrendChart({
         </Typography>
       </Box>
       <Paper className={classes.paper}>
-        {status !== "idle" && (
+        {statusLoading && (
           <LinearProgress className={classes.bar} color="secondary" />
         )}
         <Box p={3}>
           <Box height={chartHeight}>
             <LineChart
-              data={data}
-              markers={[{ title: averageNormalTitle, value: normalAverage }]}
+              data={statusLoading ? [] : data}
+              markers={
+                statusLoading
+                  ? []
+                  : [{ title: averageNormalTitle, value: normalAverage }]
+              }
             />
           </Box>
         </Box>

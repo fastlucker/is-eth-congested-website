@@ -32,14 +32,7 @@ module.exports = {
     },
     `gatsby-plugin-gatsby-cloud`,
     `gatsby-plugin-resolve-src`,
-    {
-      resolve: `gatsby-plugin-material-ui`,
-      options: {
-        stylesProvider: {
-          injectFirst: true,
-        },
-      },
-    },
+    `gatsby-plugin-material-ui`,
     `gatsby-plugin-styled-components`,
     {
       resolve: "@builder.io/gatsby",
@@ -48,7 +41,7 @@ module.exports = {
         publicAPIKey: config.builderAPIKey,
         // optional
         // mapping model names to template files, the plugin will create a page for each entry of the model at its specified url
-        custom404Dev: path.resolve("src/templates/404.js"),
+        custom404Dev: path.resolve("src/pages/404.js"),
         templates: {
           // Render every `page` model as a new page using the /page.tsx template
           // based on the URL provided in Builder.io

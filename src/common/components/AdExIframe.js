@@ -16,7 +16,6 @@ function AdExIframe({ src, className, requiredWidth, requiredHeight }) {
       requiredWidth.toString() !== width &&
       requiredHeight.toString() !== height
     ) {
-      console.log("test")
       return (
         <>
           <p>{`Please add an ad with dimensions: ${requiredWidth}x${requiredHeight}`}</p>
@@ -27,22 +26,31 @@ function AdExIframe({ src, className, requiredWidth, requiredHeight }) {
 
     return (
       <iframe
+        // must have unique title property jsx-a11y/iframe-has-title
+        title={`adex-iframe-${Math.random().toString(36).substring(7)}`}
         src={`https://viewm.moonicorn.network/#${params}`}
         width={`${width}`}
         height={`${height}`}
         scrolling="no"
-        frameborder="0"
+        frameBorder="0"
         style={{ border: 0 }}
         className={className}
-        onload="window.addEventListener('message', function(ev) { 
-				   if (ev.data.hasOwnProperty('adexHeight') && ('https://viewm.moonicorn.network' === ev.origin)) {
-					for (let f of document.getElementsByTagName('iframe')) {	
-					  if (f.contentWindow === ev.source) {
-						f.height = ev.data.adexHeight;
-					  }
-					}
-				   }
-				 }, false)"
+        onLoad={window.addEventListener(
+          "message",
+          function (ev) {
+            if (
+              ev.data.hasOwnProperty("adexHeight") &&
+              "https://viewm.moonicorn.network" === ev.origin
+            ) {
+              for (let f of document.getElementsByTagName("iframe")) {
+                if (f.contentWindow === ev.source) {
+                  f.height = ev.data.adexHeight
+                }
+              }
+            }
+          },
+          false
+        )}
       ></iframe>
     )
   } catch (error) {

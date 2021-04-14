@@ -7,7 +7,7 @@
 
 import React, { useEffect } from "react"
 import { StyledProvider } from "components-extra"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import { defaultTheme } from "themes"
 import { Container, Box } from "@material-ui/core"
 import { BuilderComponent } from "@builder.io/react"
@@ -26,17 +26,17 @@ const Layout = ({ data }) => {
   useEffect(() => {
     dispatch(fetchGasTrendAsync(7))
     dispatch(fetchGasInfoAsync())
-  }, [])
+  })
 
   return (
     <StyledProvider theme={defaultTheme}>
-      <BuilderComponent modelName="header" content={header} />
+      <BuilderComponent renderLink={Link} modelName="header" content={header} />
       <Container>
         <Box py={3}>
-          <BuilderComponent modelName="page" content={page} />
+          <BuilderComponent renderLink={Link} modelName="page" content={page} />
         </Box>
       </Container>
-      <BuilderComponent modelName="footer" content={footer} />
+      <BuilderComponent renderLink={Link} modelName="footer" content={footer} />
     </StyledProvider>
   )
 }
