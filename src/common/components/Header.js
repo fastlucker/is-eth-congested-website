@@ -1,6 +1,7 @@
 import * as React from "react"
 import PropTypes from "prop-types"
 // import { Link } from "gatsby"
+import { Builder } from "@builder.io/react"
 import { makeStyles } from "@material-ui/core/styles"
 import {
   AppBar,
@@ -13,7 +14,6 @@ import {
 } from "@material-ui/core"
 import {
   WidgetsRounded as WidgetsIcon,
-  AccessTimeRounded as TimeIcon,
   AttachMoneyRounded as MoneyIcon,
   EvStationRounded as EvStationIcon,
 } from "@material-ui/icons"
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const Header = ({ siteTitle }) => {
+const Header = ({ title, showBlockNumber, showEthPrice }) => {
   const classes = useStyles()
   const gasInfo = useSelector(selectGasInfo)
   return (
@@ -46,28 +46,58 @@ const Header = ({ siteTitle }) => {
             <EvStationIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Is Ethereum Congested?
+            {title || `Is Ethereum Congested?`}
           </Typography>
           {/* TODO: maybe do something on the right side as well */}
-          <Box px={1}>
-            <Chip
-              label={`Block # ${gasInfo?.sources?.[0]?.lastBlock ?? "loading"}`}
-              icon={<WidgetsIcon fontSize={"small"} />}
-              color="primary"
-            />
-          </Box>
-          <Box px={1}>
-            <Chip
-              label={`${gasInfo?.ethPrice ?? 0} ETH/USD`}
-              icon={<MoneyIcon fontSize={"small"} />}
-              color="primary"
-            />
-          </Box>
+          {showBlockNumber && (
+            <Box px={1}>
+              <Chip
+                label={`Block # ${
+                  gasInfo?.sources?.[0]?.lastBlock ?? "loading"
+                }`}
+                icon={<WidgetsIcon fontSize={"small"} />}
+                color="primary"
+              />
+            </Box>
+          )}
+          {showEthPrice && (
+            <Box px={1}>
+              <Chip
+                label={`${gasInfo?.ethPrice ?? 0} ETH/USD`}
+                icon={<MoneyIcon fontSize={"small"} />}
+                color="primary"
+              />
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
   )
 }
+
+Builder.registerComponent(Header, {
+  // NOTE: never name a component the same as a model
+  name: "Header",
+  // Optionally give a custom icon (image url - ideally a black on transparent bg svg or png)
+  image: "https://img.icons8.com/ios-filled/344/document-header.png",
+  inputs: [
+    {
+      name: "title",
+      type: "string",
+      defaultValue: "Your Title Here",
+    },
+    {
+      name: "showBlockNumber",
+      type: "boolean",
+      defaultValue: true,
+    },
+    {
+      name: "showEthPrice",
+      type: "boolean",
+      defaultValue: true,
+    },
+  ],
+})
 
 Header.propTypes = {
   siteTitle: PropTypes.string,

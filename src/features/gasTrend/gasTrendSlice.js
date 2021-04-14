@@ -47,6 +47,8 @@ export const { setData } = gasTrendSlice.actions
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectGasTrend = state => state.gasTrend
 
+export const selectGasTrendStatus = state => state.gasTrend.status
+
 export const selectChartData = createSelector(
   selectGasTrend,
   (_, dataNaming) => dataNaming,

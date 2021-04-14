@@ -1,5 +1,5 @@
 const path = require("path")
-
+const config = require("./src/config")
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -32,15 +32,23 @@ module.exports = {
     },
     `gatsby-plugin-gatsby-cloud`,
     `gatsby-plugin-resolve-src`,
+    `gatsby-plugin-material-ui`,
+    `gatsby-plugin-styled-components`,
     {
-      resolve: `gatsby-plugin-material-ui`,
+      resolve: "@builder.io/gatsby",
       options: {
-        stylesProvider: {
-          injectFirst: true,
+        // public API Key
+        publicAPIKey: config.builderAPIKey,
+        // optional
+        // mapping model names to template files, the plugin will create a page for each entry of the model at its specified url
+        custom404Dev: path.resolve("src/pages/404.js"),
+        templates: {
+          // Render every `page` model as a new page using the /page.tsx template
+          // based on the URL provided in Builder.io
+          page: path.resolve("src/templates/layout.js"),
         },
       },
     },
-    `gatsby-plugin-styled-components`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

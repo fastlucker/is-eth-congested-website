@@ -1,6 +1,8 @@
 import React, { useState } from "react"
 import { Newsletter } from "components-extra"
 import { Box, makeStyles } from "@material-ui/core"
+import { Builder } from "@builder.io/react"
+
 const useStyles = makeStyles(theme => ({
   full: {
     width: "100%",
@@ -38,3 +40,15 @@ export default function CustomNewsletter() {
     </Box>
   )
 }
+
+Builder.registerComponent(CustomNewsletter, {
+  name: "Newsletter",
+  // Optionally give a custom icon (image url - ideally a black on transparent bg svg or png)
+  image: "https://img.icons8.com/ios-filled/344/form.png",
+  inputs: [
+    {
+      // TODO: add inputs when we decide to use this
+      // must implement api and pass variables in the component in builder.io
+    },
+  ],
+})
