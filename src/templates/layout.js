@@ -7,13 +7,14 @@
 
 import React, { useEffect } from "react"
 import { StyledProvider } from "components-extra"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import { defaultTheme } from "themes"
 import { Container, Box } from "@material-ui/core"
 import { BuilderComponent } from "@builder.io/react"
 import { useDispatch } from "react-redux"
 import { fetchGasInfoAsync } from "features/gasTracker/gasTrackerSlice"
 import { fetchGasTrendAsync } from "features/gasTrend/gasTrendSlice"
+import Link from "common/components/Link"
 import "../../builder-settings"
 import "./layout.css"
 
