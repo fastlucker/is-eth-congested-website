@@ -1,12 +1,14 @@
 const path = require("path")
 const config = require("./src/config")
 module.exports = {
+  flags: { DEV_SSR: true, FAST_REFRESH: true },
   siteMetadata: {
     title: `Gatsby Default Starter`,
     description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
     author: `@gatsbyjs`,
   },
   plugins: [
+    `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
     {
@@ -33,7 +35,6 @@ module.exports = {
     `gatsby-plugin-gatsby-cloud`,
     `gatsby-plugin-resolve-src`,
     `gatsby-plugin-material-ui`,
-    `gatsby-plugin-styled-components`,
     {
       resolve: "@builder.io/gatsby",
       options: {
