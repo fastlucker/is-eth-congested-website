@@ -1,13 +1,13 @@
 // this proxy is also good but they do some caching or something
 // which gives back old/inaccurate data
 
-// const fetchFromAllOriginsProxyJSON = (input, init) =>
-//   fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(input)}`, init)
-//     .then(response => {
-//       if (response.ok) return response.json()
-//       throw new Error("Network response was not ok.")
-//     })
-//     .then(data => JSON.parse(data.contents))
+const fetchFromAllOriginsProxyJSON = (input, init) =>
+  fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(input)}`, init)
+    .then(response => {
+      if (response.ok) return response.json()
+      throw new Error("Network response was not ok.")
+    })
+    .then(data => JSON.parse(data.contents))
 
 // Prefer this for fetching or create own proxy
 const fetchFromThingProxy = (input, init) =>
@@ -19,7 +19,7 @@ const fetchFromThingProxy = (input, init) =>
   )
 
 // here you can easily switch the proxy you want to use
-const fetchProxy = fetchFromThingProxy
+const fetchProxy = fetchFromAllOriginsProxyJSON
 
 // since there the ethgas.watch doesn't have Access-Control-Allow-Origin": "*"
 // or API keys in order to access this from the browser we need to use a cors proxy
