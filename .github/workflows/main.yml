@@ -1,0 +1,63 @@
+name: Gatsby Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Npm cache
+        uses: actions/cache@v2
+        id: npm-cache
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      # In order to make gatsby incremental build works, it's necessary .cache
+      # and public folder.
+      - name: Gatsby Cache Folder
+        uses: actions/cache@v2
+        id: gatsby-cache-folder
+        with:
+          path: .cache
+          key: ${{ runner.os }}-cache-gatsby-${{ hashFiles('**/cache-buster.json') }}
+          restore-keys: |
+            ${{ runner.os }}-cache-gatsby-${{ hashFiles('**/cache-buster.json') }}
+      - name: Gatsby Public Folder
+        uses: actions/cache@v2
+        id: gatsby-public-folder
+        with:
+          path: public/
+          key: ${{ runner.os }}-public-gatsby-${{ hashFiles('**/cache-buster.json') }}
+          restore-keys: |
+            ${{ runner.os }}-public-gatsby-${{ hashFiles('**/cache-buster.json') }}
+      - run: npm ci
+        name: Install dependencies
+
+      - run: npm run build
+        name: Build
+        env:
+          # incremental builds
+          # https://www.gatsbyjs.org/docs/page-build-optimizations-for-incremental-data-changes/
+          GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES: true
+          NODE_ENV: production
+      - name: GitHub Pages action
+        uses: peaceiris/actions-gh-pages@v3.7.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          cname: www.gwei.club
+          publish_branch: gh-pages
