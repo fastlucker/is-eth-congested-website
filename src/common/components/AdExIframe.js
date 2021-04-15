@@ -1,10 +1,28 @@
-import React from "react"
+import React, { useEffect } from "react"
 import PropTypes from "prop-types"
 import { Builder } from "@builder.io/react"
 
 const validAdExURL = "https://viewm.moonicorn.network/#"
 function AdExIframe({ src, className, requiredWidth, requiredHeight }) {
   const validSrc = (src || "").startsWith(validAdExURL)
+  useEffect(() => {
+    window.addEventListener(
+      "message",
+      function (ev) {
+        if (
+          ev.data.hasOwnProperty("adexHeight") &&
+          "https://viewm.moonicorn.network" === ev.origin
+        ) {
+          for (let f of document.getElementsByTagName("iframe")) {
+            if (f.contentWindow === ev.source) {
+              f.height = ev.data.adexHeight
+            }
+          }
+        }
+      },
+      false
+    )
+  }, [])
   if (!validSrc) return "Invalid AdEx Ad src..." //TODO: return a better component
   const params = src.replace(validAdExURL, "")
   try {
@@ -23,7 +41,6 @@ function AdExIframe({ src, className, requiredWidth, requiredHeight }) {
         </>
       )
     }
-
     return (
       <iframe
         // must have unique title property jsx-a11y/iframe-has-title
@@ -35,22 +52,6 @@ function AdExIframe({ src, className, requiredWidth, requiredHeight }) {
         frameBorder="0"
         style={{ border: 0 }}
         className={className}
-        onLoad={window.addEventListener(
-          "message",
-          function (ev) {
-            if (
-              ev.data.hasOwnProperty("adexHeight") &&
-              "https://viewm.moonicorn.network" === ev.origin
-            ) {
-              for (let f of document.getElementsByTagName("iframe")) {
-                if (f.contentWindow === ev.source) {
-                  f.height = ev.data.adexHeight
-                }
-              }
-            }
-          },
-          false
-        )}
       ></iframe>
     )
   } catch (error) {
