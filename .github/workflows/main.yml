@@ -2,8 +2,7 @@ name: Gatsby Publish
 
 on:
   repository_dispatch:
-    branches:
-      - main
+    types: [builder_dispatch]
 
 jobs:
   build:
